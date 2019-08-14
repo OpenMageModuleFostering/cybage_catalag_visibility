@@ -1,0 +1,58 @@
+<?php
+/**
+ * Cybage Customer Group Specific Products Plugin
+ *
+ * @category   Customer Group Specific Products Plugin
+ * @package    Cybage_Customergroup
+ * @copyright  Copyright (c) 2015 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/coe/e-commerce
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. 
+ */
+/* @var $this Mage_Wishlist_Block_Customer_Sidebar */
+?>
+<?php $message = Mage::getStoreConfig('customergroup/setting/message') ? Mage::getStoreConfig('customergroup/setting/message') : "Invalid Group"; ?>
+<?php if ($this->helper('wishlist')->isAllow()) : ?>
+<div class="block block-wishlist">
+    <div class="block-title">
+        <strong><span><?php echo $this->getTitle(); ?></span></strong>
+    </div>
+    <div class="block-content">
+    <p class="block-subtitle"><?php echo $this->__('Last Added Items') ?></p>
+    <?php if ($this->hasWishlistItems()): ?>
+    <ol class="mini-products-list" id="wishlist-sidebar">
+     <?php foreach ($this->getWishlistItems() as $_item): ?>
+        <?php $product = $_item->getProduct(); ?>
+        <?php $isAllowed = Mage::helper('customergroup')->checkProductCustomerGroups($product); ?>
+        <?php 
+            if(Mage::helper('customergroup')->checkMessage()) {
+                $message = '';
+            } 
+        ?>
+        <li class="item">
+            <a href="<?php echo $this->getProductUrl($_item) ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(50); ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($product->getName()) ?>" /></a>
+            <div class="product-details">
+                <a href="<?php echo $this->getItemRemoveUrl($_item) ?>" title="<?php echo $this->__('Remove This Item') ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the wishlist?') ?>');" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a>
+                <p class="product-name"><a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->escapeHtml($product->getName()) ?></a></p>
+                <?php if ($product->isSaleable() && $product->isVisibleInSiteVisibility()): ?>
+                    <?php if ($isAllowed): ?>
+                        <a href="<?php echo $this->getItemAddToCartUrl($_item) ?>" class="link-cart"><?php echo $this->__('Add to Cart') ?></a>
+                    <?php else: ?>
+                        <p class="availability out-of-stock"><span><?php echo $message;?></span></p>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <?php echo $this->getPriceHtml($product, false, '-wishlist') ?>
+            </div>
+        </li>
+    <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('wishlist-sidebar');</script>
+    <div class="actions">
+        <a href="<?php echo $this->helper('wishlist')->getListUrl() ?>"><?php echo $this->__('Go to Wishlist') ?></a>
+    </div>
+    <?php else: ?>
+        <p class="empty"><?php echo $this->__('You have no items in your wishlist.') ?></p>
+    <?php endif ?>
+    </div>
+</div>
+<?php endif ?>

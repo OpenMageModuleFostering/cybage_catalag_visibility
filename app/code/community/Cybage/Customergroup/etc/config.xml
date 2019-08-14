@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cybage Customer Group Specific Products Plugin
+ *
+ * @category   Customer Group Specific Products Plugin
+ * @package    Cybage_Customergroup
+ * @copyright  Copyright (c) 2015 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/coe/e-commerce
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. 
+ */
+-->
+<config>
+    <modules>
+        <Cybage_Customergroup>
+            <version>0.1.0</version>
+        </Cybage_Customergroup>
+    </modules>
+    <global>
+        <blocks>
+            <customergroup>
+                <class>Cybage_Customergroup_Block</class>
+            </customergroup>
+        </blocks>
+        <helpers>
+            <customergroup>
+                <class>Cybage_Customergroup_Helper</class>
+            </customergroup>
+            <adminhtml>
+                <rewrite>
+                    <catalog_product_edit_action_attribute>Cybage_Customergroup_Helper_Attribute</catalog_product_edit_action_attribute>
+                </rewrite>
+            </adminhtml>
+        </helpers>
+        <models>
+            <customergroup>
+                <class>Cybage_Customergroup_Model</class>
+            </customergroup>
+        </models>
+        <resources>
+            <customergroup_setup>
+                <setup>
+                    <module>Cybage_Customergroup</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </customergroup_setup>
+            <customergroup_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </customergroup_write>
+            <customergroup_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </customergroup_read>
+        </resources>
+    </global>
+    <frontend>
+        <events>
+            <controller_action_predispatch_catalog_product_view>
+                <observers>
+                    <customergroup_check>
+                        <class>customergroup/observer</class>
+                        <method>checkCustomerGroupOnProductView</method>
+                    </customergroup_check>
+                </observers>
+            </controller_action_predispatch_catalog_product_view>
+            <catalog_category_collection_load_before>
+                <observers>
+                    <category_customergroup_check>
+                        <class>customergroup/observer</class>
+                        <method>checkCustomerGroupOnCategory</method>
+                    </category_customergroup_check>
+                </observers>
+            </catalog_category_collection_load_before>
+            <catalog_product_collection_load_before>
+                <observers>
+                    <product_customergroup_check>
+                        <class>customergroup/observer</class>
+                        <method>checkCustomerGroupOnProduct</method>
+                    </product_customergroup_check>
+                </observers>
+            </catalog_product_collection_load_before>
+        </events>
+        <layout>
+            <updates>
+                <customergroup>
+                    <file>customergroup/customergroup.xml</file>
+                </customergroup>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <use>admin</use>
+                <args>
+                    <modules>
+                        <Cybage_Customergroup after="Mage_Adminhtml">Cybage_Customergroup</Cybage_Customergroup>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <customergroup>
+                    <file>customergroup/customergroup.xml</file>
+                </customergroup>
+            </updates>
+        </layout>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <module_visibility_check>
+                        <class>customergroup/observer</class>
+                        <method>checkModuleStatus</method>
+                    </module_visibility_check>
+                </observers>
+            </controller_action_predispatch>
+            <adminhtml_catalog_product_grid_prepare_massaction>
+                <observers>
+                    <customgrid_column_append>
+                        <class>customergroup/observer</class>
+                        <method>appendCustomerGroupColumn</method>
+                    </customgrid_column_append>
+                </observers>
+            </adminhtml_catalog_product_grid_prepare_massaction>
+            <catalog_product_collection_load_before>
+                <observers>
+                    <customergroup_attribute_append>
+                        <class>customergroup/observer</class>
+                        <method>appendCustomerGroupAttribute</method>
+                    </customergroup_attribute_append>
+                </observers>
+            </catalog_product_collection_load_before>
+            <catalog_category_save_before>
+                <observers>
+                    <child_category_customergroup_check>
+                        <class>customergroup/observer</class>
+                        <method>checkCustomerGroupOnChildCategories</method>
+                    </child_category_customergroup_check>
+                </observers>
+            </catalog_category_save_before>
+            <catalog_product_save_after>
+                <observers>
+                    <parent_product_customergroup_check>
+                        <class>customergroup/observer</class>
+                        <method>checkCustomerGroupOnParentProduct</method>
+                    </parent_product_customergroup_check>
+                </observers>
+            </catalog_product_save_after>
+        </events>
+    </adminhtml>
+    <default>
+        <customergroup>
+            <setting>
+                <visibility>1</visibility>
+                <message>Product no longer available.</message>
+                <addtocart_message>Enable 'Add to Cart Button' on the parent category.</addtocart_message>
+                <front_cart_message>The below products are no longer available and hence have been removed from your cart:</front_cart_message>
+            </setting>
+        </customergroup>        
+    </default>
+</config>

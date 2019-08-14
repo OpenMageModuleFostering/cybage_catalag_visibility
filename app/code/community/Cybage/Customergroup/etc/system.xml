@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cybage Customer Group Specific Products Plugin
+ *
+ * @category   Customer Group Specific Products Plugin
+ * @package    Cybage_Customergroup
+ * @copyright  Copyright (c) 2015 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/coe/e-commerce
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. 
+ */
+-->
+<config>
+    <tabs>
+        <customergroup_tab translate="label" module="customergroup">
+            <label>Cybage</label>
+            <sort_order>300</sort_order>
+        </customergroup_tab>
+    </tabs>
+    <sections>
+        <customergroup translate="label" module="customergroup">
+        <label>Catalog Visibility</label>
+        <tab>customergroup_tab</tab>
+        <frontend_type>text</frontend_type>
+        <sort_order>200</sort_order>
+        <show_in_default>1</show_in_default>
+        <show_in_website>1</show_in_website>
+        <show_in_store>1</show_in_store>
+            <groups>
+                <setting translate="label" module="customergroup">
+                    <label>Catalog Visibility Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <visibility translate="label" module="customergroup">
+                            <label>Module Status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </visibility>
+                        <message translate="label" module="customergroup">
+                            <label>Wishlist Custom Message</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </message>
+                        <addtocart_message translate="label" module="customergroup">
+                            <label>Disable Add To Cart Button Custom Message - Admin</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </addtocart_message>
+                        <front_cart_message translate="label" module="customergroup">
+                            <label>Product Remove From Shopping Cart Custom Message - Frontend</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </front_cart_message>
+                    </fields>
+                </setting>
+            </groups>
+        </customergroup>
+    </sections>
+</config>

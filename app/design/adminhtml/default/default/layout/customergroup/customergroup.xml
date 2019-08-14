@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cybage Customer Group Specific Products Plugin
+ *
+ * @category   Customer Group Specific Products Plugin
+ * @package    Cybage_Customergroup
+ * @copyright  Copyright (c) 2015 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/coe/e-commerce
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. 
+ */
+-->
+
+<layout>
+    <adminhtml_catalog_category_edit>
+        <reference name="head">
+            <action method="addJs" ifconfig="customergroup/setting/visibility"><script>customergroup/jquery-1.10.2.min.js</script></action>
+            <action method="addJs" ifconfig="customergroup/setting/visibility"><script>customergroup/jquery.noconflict.js</script></action>
+        </reference>
+        <reference name="js">
+            <block type="customergroup/adminhtml_js" template="customergroup/category/js.phtml" name="customergroup_category_js"></block>
+        </reference>
+    </adminhtml_catalog_category_edit>
+    <adminhtml_catalog_product_new>
+        <reference name="head">
+            <action method="addJs" ifconfig="customergroup/setting/visibility"><script>customergroup/jquery-1.10.2.min.js</script></action>
+            <action method="addJs" ifconfig="customergroup/setting/visibility"><script>customergroup/jquery.noconflict.js</script></action>
+        </reference>
+        <reference name="js">
+            <block type="customergroup/adminhtml_js" template="customergroup/js.phtml" name="customergroup_js"></block>
+        </reference>
+    </adminhtml_catalog_product_new>
+    <adminhtml_catalog_product_edit>
+        <reference name="head">
+            <action method="addJs" ifconfig="customergroup/setting/visibility"><script>customergroup/jquery-1.10.2.min.js</script></action>
+            <action method="addJs" ifconfig="customergroup/setting/visibility"><script>customergroup/jquery.noconflict.js</script></action>
+        </reference>
+        <reference name="js">
+            <block type="customergroup/adminhtml_js" template="customergroup/js.phtml" name="customergroup_js"></block>
+        </reference>
+    </adminhtml_catalog_product_edit>
+    <adminhtml_customergroup_index>
+        <block type="customergroup/adminhtml_customergroup" name="root" output="toHtml" template="customergroup/customergroup.phtml"/>
+    </adminhtml_customergroup_index>
+</layout>

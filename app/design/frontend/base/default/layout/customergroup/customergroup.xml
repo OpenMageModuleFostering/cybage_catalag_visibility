@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cybage Customer Group Specific Products Plugin
+ *
+ * @category   Customer Group Specific Products Plugin
+ * @package    Cybage_Customergroup
+ * @copyright  Copyright (c) 2015 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/coe/e-commerce
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. 
+ */
+-->
+
+<layout>
+    <wishlist_index_index>
+        <reference name="customer.wishlist.item.cart">
+            <action method="setTemplate" ifconfig="customergroup/setting/visibility"><template>customergroup/wishlist/cart.phtml</template></action>
+        </reference>
+        <reference name="customer.wishlist.button.share">
+            <action method="setTemplate" ifconfig="customergroup/setting/visibility"><template>customergroup/wishlist/share.phtml</template></action>
+        </reference>
+        <reference name="customer.wishlist.button.toCart">
+            <action method="setTemplate" ifconfig="customergroup/setting/visibility"><template>customergroup/wishlist/tocart.phtml</template></action>
+        </reference>
+    </wishlist_index_index>
+    <catalog_category_default>
+        <reference name="product_list">
+            <action method="setTemplate" ifconfig="customergroup/setting/visibility"><template>customergroup/product/list.phtml</template></action>
+        </reference>
+    </catalog_category_default>
+    <catalog_category_layered>
+        <reference name="product_list">
+            <action method="setTemplate" ifconfig="customergroup/setting/visibility"><template>customergroup/product/list.phtml</template></action>
+        </reference>
+    </catalog_category_layered>
+    <catalog_product_view>
+        <reference name="product.info.addtocart">
+            <action method="setTemplate" ifconfig="customergroup/setting/visibility"><template>customergroup/product/addtocart.phtml</template></action>
+        </reference>
+        <reference name="product.info.addto">
+            <action method="setTemplate" ifconfig="customergroup/setting/visibility"><template>customergroup/product/addto.phtml</template></action>
+        </reference>
+    </catalog_product_view>
+    <default>
+        <reference name="wishlist_sidebar">
+            <action method="setTemplate" ifconfig="customergroup/setting/visibility"><template>customergroup/wishlist/sidebar.phtml</template></action>
+        </reference>
+    </default>
+</layout>

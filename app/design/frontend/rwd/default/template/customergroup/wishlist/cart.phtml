@@ -1,0 +1,55 @@
+<?php
+/**
+ * Cybage Customer Group Specific Products Plugin
+ *
+ * @category   Customer Group Specific Products Plugin
+ * @package    Cybage_Customergroup
+ * @copyright  Copyright (c) 2015 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/coe/e-commerce
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. 
+ */
+
+/* @var $this Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart */
+/* @var Mage_Wishlist_Model_Item $item */
+$item = $this->getItem();
+$product = $item->getProduct();
+$options = $this->getChild('customer.wishlist.item.options')
+    ->setItem($item)
+    ->getConfiguredOptions();
+$isAllowed = Mage::helper('customergroup')->checkProductCustomerGroups($product);
+$message = Mage::getStoreConfig('customergroup/setting/message') ? Mage::getStoreConfig('customergroup/setting/message') : "Invalid Group";
+if(Mage::helper('customergroup')->checkMessage()) {
+    $message = '';
+}
+?>
+<div class="cart-cell">
+<?php if ($product->isSaleable()): ?>
+    <?php if ($isAllowed): ?>
+        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="addWItemToCart(<?php echo $item->getId()?>);" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+    <?php else: ?>
+        <p class="availability out-of-stock"><span><?php echo $message;?></span></p>
+    <?php endif; ?>
+<?php else: ?>
+    <?php if ($product->getIsSalable()): ?>
+        <p class="availability in-stock">
+            <span class="label"><?php echo $this->helper('catalog')->__('Availability:') ?></span>
+            <span class="value"><?php echo $this->helper('catalog')->__('In stock') ?></span>
+        </p>
+    <?php else: ?>
+        <p class="availability out-of-stock">
+            <span class="label"><?php echo $this->helper('catalog')->__('Availability:') ?></span>
+            <span class="value"><?php echo $this->helper('catalog')->__('Out of stock') ?></span>
+        </p>
+    <?php endif; ?>
+<?php endif; ?>
+</div>
+<?php if ($product->isVisibleInSiteVisibility()): ?>
+    <?php if ($isAllowed): ?>
+        <p><a class="link-edit button button-secondary" href="<?php echo $this->getItemConfigureUrl($item) ?>"><?php echo $this->__('Edit') ?></a></p>
+    <?php endif ?>
+<?php endif ?>
+<?php foreach($this->getSortedChildren() as $childName):?>
+    <?php echo $this->getChildHtml($childName, false);?>
+<?php endforeach;?>
+</div>

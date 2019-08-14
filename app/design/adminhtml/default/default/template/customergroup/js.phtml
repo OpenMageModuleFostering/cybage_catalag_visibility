@@ -1,0 +1,67 @@
+<?php
+/**
+ * Cybage Customer Group Specific Products Plugin
+ *
+ * @category   Customer Group Specific Products Plugin
+ * @package    Cybage_Customergroup
+ * @copyright  Copyright (c) 2015 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/coe/e-commerce
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. 
+ */
+?>
+<?php $_category = $this->isAssignedToCategory(); ?>
+<?php $_assignedGroups = $this->getAssignedGroups(); ?>
+
+<div class="validation-advice" id="advice-required-entry-customergroup" style="display: none">
+    <?php echo $this->__("Assign category first to select customer groups."); ?>
+</div>
+<div class="validation-advice" id="advice-required-entry-customergroup-category" style="display: none">
+    <?php echo $this->__("Assign customer groups to category first to select customer groups."); ?>
+</div>
+
+<script type="text/javascript">
+    jQuery( document ).ready(function() {
+        <?php if(!$_category) { ?>
+            jQuery("#customergroup").after( jQuery("#advice-required-entry-customergroup"));
+            jQuery("#advice-required-entry-customergroup").show();
+            jQuery("#customergroup > option").each(function() {
+                jQuery(this).removeAttr('selected');
+            });
+            jQuery("#customergroup").attr('disabled','disabled');
+        <?php } else { ?>
+            if( !jQuery("#customergroup").has('option').length ) {
+                jQuery("#customergroup").after( jQuery("#advice-required-entry-customergroup-category"));
+                jQuery("#advice-required-entry-customergroup-category").show();
+            }
+        <?php } ?>
+    });
+    jQuery( function() {
+        jQuery( document ).on( "change", ":checkbox", function () {
+            if ( jQuery(this).parents("#product-categories").length == 1 ) {
+                setTimeout(function() {
+                    <?php $_formKey = Mage::getSingleton('core/session')->getFormKey(); ?>
+                    jQuery.ajax({
+                        url: "<?php echo $this->getUrl('adminhtml/customergroup/index') ?>",
+                        type: "POST",
+                        data: {categoryIds: jQuery("#product_categories").val(), form_key:"<?php echo $_formKey ?>", assigned_groups:"<?php echo $_assignedGroups ?>"},
+                        success: function(data) {
+                            if(jQuery.trim(data)) {
+                                jQuery("#customergroup").empty().append(data);
+                                jQuery("#customergroup").removeAttr('disabled');
+                                jQuery("#advice-required-entry-customergroup").hide();
+                            } else {
+                                jQuery("#customergroup").after( jQuery("#advice-required-entry-customergroup"));
+                                jQuery("#advice-required-entry-customergroup").show();
+                                jQuery("#customergroup > option").each(function() {
+                                    jQuery(this).removeAttr('selected');
+                                });
+                                jQuery("#customergroup").attr('disabled','disabled');
+                            }
+                        }
+                    });
+                }, 100);
+            }
+        });
+    });
+</script>
