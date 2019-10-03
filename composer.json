@@ -1,17 +1,5 @@
 {
-    "name": "OpenMageModuleFostering/Cybage_Catalag_Visibility",
-    "type": "magento-module",
-    "license": "Open-Software-License",
-    "homepage": "",
-    "description": "Administrator can use the Catalogue Visibility plug-in to set visibility for different user groups at a product category as well as a product level. 
-For example, one user can access a certain product category but other cannot. The plug-in is used to define which user groups would have access to certain categories and its mapped products.",
-    "authors": [
-    {
-        "name": "Cybage Software Pvt. Ltd.",
-        "email": "tapasl@cybage.com"
-    }
-],
-    "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+    "keywords": [
+        "openmage-module"
+    ]
 }
