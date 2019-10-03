@@ -1,5 +1,7 @@
 {
     "keywords": [
         "openmage-module"
-    ]
+    ],
+    "name": "openmage-module-fostering\/cybage_catalag_visibility",
+    "license": "OSL-3.0"
 }
